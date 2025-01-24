@@ -1,6 +1,10 @@
 package api
 
-import "github.com/trwk76/gocode/web/api/spec"
+import (
+	"fmt"
+
+	"github.com/trwk76/gocode/web/api/spec"
+)
 
 func (p *Parameters) Add(key string, impl *ParameterImpl) ParameterRef {
 	key = uniqueKey(p.keys, key, "param")
@@ -60,6 +64,14 @@ func (p *ParameterImpl) spec() spec.Parameter {
 
 	if p.Schema != nil {
 		sch := p.Schema.schemaSpec()
+		s := p.Schema.schemaImpl().schema()
+
+		switch s.Type {
+		case spec.TypeBoolean, spec.TypeInteger, spec.TypeNumber, spec.TypeString, spec.TypeArray:
+		default:
+			panic(fmt.Errorf("only simple types can be handled by parameters"))
+		}
+
 		res.Schema = &sch
 	}
 
