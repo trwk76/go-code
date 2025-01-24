@@ -6,36 +6,36 @@ type (
 	SchemaOrRef       = ItemOrRef[Schema]
 
 	Schema struct {
-		Title                string             `json:"title,omitempty" yaml:"title,omitempty"`
-		Description          string             `json:"description,omitempty" yaml:"description,omitempty"`
-		Deprecated           bool               `json:"deprecated,omitempty" yaml:"deprecated,omitempty"`
-		AllOf                []SchemaOrRef      `json:"allOf,omitempty" yaml:"allOf,omitempty"`
-		OneOf                []SchemaOrRef      `json:"oneOf,omitempty" yaml:"oneOf,omitempty"`
-		AnyOf                []SchemaOrRef      `json:"anyOf,omitempty" yaml:"anyOf,omitempty"`
-		Type                 Type               `json:"type,omitempty" yaml:"type,omitempty"`
-		Format               Format             `json:"format,omitempty" yaml:"format,omitempty"`
-		Const                any                `json:"const,omitempty" yaml:"const,omitempty"`
-		Enum                 []any              `json:"enum,omitempty" yaml:"enum,omitempty"`
-		Minimum              any                `json:"minimum,omitempty" yaml:"minimum,omitempty"`
-		ExclusiveMinimum     any                `json:"exclusiveMinimum,omitempty" yaml:"exclusiveMinimum,omitempty"`
-		Maximum              any                `json:"maximum,omitempty" yaml:"maximum,omitempty"`
-		ExclusiveMaximum     any                `json:"exclusiveMaximum,omitempty" yaml:"exclusiveMaximum,omitempty"`
-		MultipleOf           any                `json:"multipleOf,omitempty" yaml:"multipleOf,omitempty"`
-		MinLength            uint32             `json:"minLength,omitempty" yaml:"minLength,omitempty"`
-		MaxLength            uint32             `json:"maxLength,omitempty" yaml:"maxLength,omitempty"`
-		Pattern              string             `json:"pattern,omitempty" yaml:"pattern,omitempty"`
-		Items                *SchemaOrRef       `json:"items,omitempty" yaml:"items,omitempty"`
-		MinItems             uint32             `json:"minItems,omitempty" yaml:"minItems,omitempty"`
-		MaxItems             uint32             `json:"maxItems,omitempty" yaml:"maxItems,omitempty"`
-		UniqueItems          bool               `json:"uniqueItems,omitempty" yaml:"uniqueItems,omitempty"`
-		Properties           NamedSchemaOrRefs  `json:"properties,omitempty" yaml:"properties,omitempty"`
-		PatternProperties    NamedSchemaOrRefs  `json:"patternProperties,omitempty" yaml:"patternProperties,omitempty"`
-		Required             []string           `json:"required,omitempty" yaml:"required,omitempty"`
-		AdditionalProperties *SchemaOrRef       `json:"additionalProperties,omitempty" yaml:"additionalProperties,omitempty"`
-		Discriminator        *Discriminator     `json:"discriminator,omitempty" yaml:"discriminator,omitempty"`
-		XML                  *XML               `json:"xml,omitempty" yaml:"xml,omitempty"`
-		ExternalDocs         *ExternalDoc       `json:"externalDocs,omitempty" yaml:"externalDocs,omitempty"`
-		Examples             NamedExampleOrRefs `json:"examples,omitempty" yaml:"examples,omitempty"`
+		Title                string              `json:"title,omitempty" yaml:"title,omitempty"`
+		Description          string              `json:"description,omitempty" yaml:"description,omitempty"`
+		Deprecated           bool                `json:"deprecated,omitempty" yaml:"deprecated,omitempty"`
+		AllOf                []ItemOrRef[Schema] `json:"allOf,omitempty" yaml:"allOf,omitempty"`
+		OneOf                []ItemOrRef[Schema] `json:"oneOf,omitempty" yaml:"oneOf,omitempty"`
+		AnyOf                []ItemOrRef[Schema] `json:"anyOf,omitempty" yaml:"anyOf,omitempty"`
+		Type                 Type                `json:"type,omitempty" yaml:"type,omitempty"`
+		Format               Format              `json:"format,omitempty" yaml:"format,omitempty"`
+		Const                any                 `json:"const,omitempty" yaml:"const,omitempty"`
+		Enum                 []any               `json:"enum,omitempty" yaml:"enum,omitempty"`
+		Minimum              any                 `json:"minimum,omitempty" yaml:"minimum,omitempty"`
+		ExclusiveMinimum     any                 `json:"exclusiveMinimum,omitempty" yaml:"exclusiveMinimum,omitempty"`
+		Maximum              any                 `json:"maximum,omitempty" yaml:"maximum,omitempty"`
+		ExclusiveMaximum     any                 `json:"exclusiveMaximum,omitempty" yaml:"exclusiveMaximum,omitempty"`
+		MultipleOf           any                 `json:"multipleOf,omitempty" yaml:"multipleOf,omitempty"`
+		MinLength            uint32              `json:"minLength,omitempty" yaml:"minLength,omitempty"`
+		MaxLength            uint32              `json:"maxLength,omitempty" yaml:"maxLength,omitempty"`
+		Pattern              string              `json:"pattern,omitempty" yaml:"pattern,omitempty"`
+		Items                *ItemOrRef[Schema]  `json:"items,omitempty" yaml:"items,omitempty"`
+		MinItems             uint32              `json:"minItems,omitempty" yaml:"minItems,omitempty"`
+		MaxItems             uint32              `json:"maxItems,omitempty" yaml:"maxItems,omitempty"`
+		UniqueItems          bool                `json:"uniqueItems,omitempty" yaml:"uniqueItems,omitempty"`
+		Properties           NamedSchemaOrRefs   `json:"properties,omitempty" yaml:"properties,omitempty"`
+		PatternProperties    NamedSchemaOrRefs   `json:"patternProperties,omitempty" yaml:"patternProperties,omitempty"`
+		Required             []string            `json:"required,omitempty" yaml:"required,omitempty"`
+		AdditionalProperties *ItemOrRef[Schema]  `json:"additionalProperties,omitempty" yaml:"additionalProperties,omitempty"`
+		Discriminator        *Discriminator      `json:"discriminator,omitempty" yaml:"discriminator,omitempty"`
+		XML                  *XML                `json:"xml,omitempty" yaml:"xml,omitempty"`
+		ExternalDocs         *ExternalDoc        `json:"externalDocs,omitempty" yaml:"externalDocs,omitempty"`
+		Examples             NamedExampleOrRefs  `json:"examples,omitempty" yaml:"examples,omitempty"`
 	}
 
 	Type   string
