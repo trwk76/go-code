@@ -21,12 +21,12 @@ type (
 		Maximum              any                 `json:"maximum,omitempty" yaml:"maximum,omitempty"`
 		ExclusiveMaximum     any                 `json:"exclusiveMaximum,omitempty" yaml:"exclusiveMaximum,omitempty"`
 		MultipleOf           any                 `json:"multipleOf,omitempty" yaml:"multipleOf,omitempty"`
-		MinLength            uint32              `json:"minLength,omitempty" yaml:"minLength,omitempty"`
-		MaxLength            uint32              `json:"maxLength,omitempty" yaml:"maxLength,omitempty"`
+		MinLength            uint64              `json:"minLength,omitempty" yaml:"minLength,omitempty"`
+		MaxLength            uint64              `json:"maxLength,omitempty" yaml:"maxLength,omitempty"`
 		Pattern              string              `json:"pattern,omitempty" yaml:"pattern,omitempty"`
 		Items                *ItemOrRef[Schema]  `json:"items,omitempty" yaml:"items,omitempty"`
-		MinItems             uint32              `json:"minItems,omitempty" yaml:"minItems,omitempty"`
-		MaxItems             uint32              `json:"maxItems,omitempty" yaml:"maxItems,omitempty"`
+		MinItems             uint64              `json:"minItems,omitempty" yaml:"minItems,omitempty"`
+		MaxItems             uint64              `json:"maxItems,omitempty" yaml:"maxItems,omitempty"`
 		UniqueItems          bool                `json:"uniqueItems,omitempty" yaml:"uniqueItems,omitempty"`
 		Properties           NamedSchemaOrRefs   `json:"properties,omitempty" yaml:"properties,omitempty"`
 		PatternProperties    NamedSchemaOrRefs   `json:"patternProperties,omitempty" yaml:"patternProperties,omitempty"`
