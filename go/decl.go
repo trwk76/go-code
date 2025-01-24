@@ -152,10 +152,8 @@ func (d FuncDecl) declItemRow() code.TableRow {
 		Prefix: string(d.Comment),
 		Columns: []string{
 			"func",
-			idString(d.ID) + genParamsString(d.GenParams),
-			paramsString(d.Params, true),
-			paramsString(d.Return, false),
-			stmtString(d.Body, "function declaration requires a body"),
+			idString(d.ID) + genParamsString(d.GenParams) + paramsString(d.Params, true) + paramsString(d.Return, false),
+			stmtString(d.Body, true, "function declaration requires a body"),
 		},
 	}
 }
@@ -185,10 +183,8 @@ func (d MethDecl) declItemRow() code.TableRow {
 		Columns: []string{
 			"func",
 			paramsString(Params{d.Receiver}, true),
-			idString(d.ID),
-			paramsString(d.Params, true),
-			paramsString(d.Return, false),
-			stmtString(d.Body, "method declaration requires a body"),
+			idString(d.ID) + paramsString(d.Params, true) + paramsString(d.Return, false),
+			stmtString(d.Body, true, "method declaration requires a body"),
 		},
 	}
 }
@@ -387,12 +383,18 @@ func (p Param) simpleParam() bool {
 }
 
 func (p Param) write(w *code.Writer) {
-	p.ID.write(w)
+	reqMsg := "unnamed parameter requires a type"
 
-	if p.Type != nil {
-		w.Space()
-		p.Type.writeType(w)
+	if p.ID != "" {
+		p.ID.write(w)
+		reqMsg = ""
+
+		if p.Type != nil {
+			w.Space()
+		}
 	}
+
+	writeType(w, p.Type, reqMsg)
 }
 
 func (p Params) simpleParams() bool {

@@ -370,8 +370,8 @@ func (d VarDecls) writeStmt(w *code.Writer, singleLine bool) {
 	d.writeDecl(w)
 }
 
-func stmtString(s Stmt, reqMessage string) string {
-	return writeString(func(w *code.Writer) { writeStmt(w, s, true, reqMessage) })
+func stmtString(s Stmt, singleLine bool, reqMessage string) string {
+	return writeString(func(w *code.Writer) { writeStmt(w, s, singleLine, reqMessage) })
 }
 
 func writeStmt(w *code.Writer, s Stmt, singleLine bool, reqMessage string) {
