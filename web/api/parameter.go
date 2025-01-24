@@ -2,6 +2,19 @@ package api
 
 import "github.com/trwk76/gocode/web/api/spec"
 
+func (p *Parameters) Add(key string, impl *ParameterImpl) ParameterRef {
+	key = uniqueKey(p.keys, key, "param")
+
+	res := ParameterRef{
+		a:   p.api,
+		key: key,
+	}
+
+	p.keys[key] = impl
+
+	return res
+}
+
 type (
 	Parameter interface {
 		paramSpec() spec.ParameterOrRef

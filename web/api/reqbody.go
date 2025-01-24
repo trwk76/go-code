@@ -2,6 +2,19 @@ package api
 
 import "github.com/trwk76/gocode/web/api/spec"
 
+func (r *RequestBodies) Add(key string, impl *RequestBodyImpl) RequestBodyRef {
+	key = uniqueKey(r.keys, key, "reqBody")
+
+	res := RequestBodyRef{
+		a:   r.api,
+		key: key,
+	}
+
+	r.keys[key] = impl
+
+	return res
+}
+
 type (
 	RequestBody interface {
 		reqBodySpec() spec.RequestBodyOrRef

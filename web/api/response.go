@@ -2,6 +2,19 @@ package api
 
 import "github.com/trwk76/gocode/web/api/spec"
 
+func (r *Responses) Add(key string, impl *ResponseImpl) ResponseRef {
+	key = uniqueKey(r.keys, key, "response")
+
+	res := ResponseRef{
+		a:   r.api,
+		key: key,
+	}
+
+	r.keys[key] = impl
+
+	return res
+}
+
 type (
 	Response interface {
 		respSpec() spec.ResponseOrRef
