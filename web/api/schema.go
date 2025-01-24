@@ -7,6 +7,19 @@ import (
 	"github.com/trwk76/gocode/web/api/spec"
 )
 
+func (s *Schemas) Add(key string, impl SchemaImpl) SchemaRef {
+	key = uniqueKey(s.keys, key, "schema")
+
+	res := SchemaRef{
+		a:   s.api,
+		key: key,
+	}
+
+	s.keys[key] = impl
+
+	return res
+}
+
 type (
 	Schema interface {
 		schemaImpl() SchemaImpl
@@ -54,6 +67,7 @@ type (
 	}
 
 	Schemas struct {
+		api  *API
 		keys map[string]SchemaImpl
 	}
 )
@@ -90,8 +104,9 @@ var (
 	}
 )
 
-func newSchemas() Schemas {
+func newSchemas(api *API) Schemas {
 	return Schemas{
+		api:  api,
 		keys: make(map[string]SchemaImpl),
 	}
 }

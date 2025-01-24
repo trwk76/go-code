@@ -19,6 +19,7 @@ type (
 	}
 
 	Responses struct {
+		api  *API
 		keys map[string]*ResponseImpl
 	}
 )
@@ -46,8 +47,9 @@ func (r *ResponseRef) respImpl() *ResponseImpl {
 	return r.a.Responses.keys[r.key]
 }
 
-func newResponses() Responses {
+func newResponses(api *API) Responses {
 	return Responses{
+		api:  api,
 		keys: make(map[string]*ResponseImpl),
 	}
 }

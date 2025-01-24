@@ -11,13 +11,16 @@ func NewAPI(baseURL string) *API {
 		baseURL = "/" + baseURL
 	}
 
-	return &API{
+	res := &API{
 		baseURL:       baseURL,
-		Schemas:       newSchemas(),
-		Parameters:    newParameters(),
-		RequestBodies: newRequestBodies(),
-		Responses:     newResponses(),
 	}
+
+	res.Schemas = newSchemas(res)
+	res.Parameters = newParameters(res)
+	res.RequestBodies = newRequestBodies(res)
+	res.Responses = newResponses(res)
+
+	return res
 }
 
 type (

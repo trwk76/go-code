@@ -23,6 +23,7 @@ type (
 	}
 
 	Parameters struct {
+		api  *API
 		keys map[string]*ParameterImpl
 	}
 )
@@ -60,8 +61,9 @@ func (r *ParameterRef) paramImpl() *ParameterImpl {
 	return r.a.Parameters.keys[r.key]
 }
 
-func newParameters() Parameters {
+func newParameters(api *API) Parameters {
 	return Parameters{
+		api:  api,
 		keys: make(map[string]*ParameterImpl),
 	}
 }

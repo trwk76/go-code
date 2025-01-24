@@ -20,6 +20,7 @@ type (
 	}
 
 	RequestBodies struct {
+		api  *API
 		keys map[string]*RequestBodyImpl
 	}
 )
@@ -48,8 +49,9 @@ func (r *RequestBodyRef) reqBodyImpl() *RequestBodyImpl {
 	return r.a.RequestBodies.keys[r.key]
 }
 
-func newRequestBodies() RequestBodies {
+func newRequestBodies(api *API) RequestBodies {
 	return RequestBodies{
+		api:  api,
 		keys: make(map[string]*RequestBodyImpl),
 	}
 }
