@@ -443,8 +443,9 @@ func writeDeclItemSection[T declItem](w *code.Writer, items []T, keyword string)
 	default:
 		w.Newline()
 		w.WriteString(keyword + " (")
+		w.Newline()
 		w.Indent(func(w *code.Writer) {
-			writeDeclItemSection(w, items, "")
+			writeDeclItems(w, items)
 		})
 		w.WriteByte(')')
 		w.Newline()

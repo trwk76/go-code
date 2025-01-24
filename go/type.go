@@ -40,6 +40,10 @@ type (
 		writeType(w *code.Writer)
 	}
 
+	PtrType struct {
+		Item Type
+	}
+
 	SliceType struct {
 		Items Type
 		Size  Expr
@@ -99,6 +103,23 @@ func (s Symbol) writeTypeSpec(w *code.Writer) {
 	s.write(w)
 }
 
+func (t PtrType) simpleType() bool {
+	return (t.Item == nil || t.Item.simpleType())
+}
+
+func (t PtrType) simpleTypeSpec() bool {
+	return t.simpleType()
+}
+
+func (t PtrType) writeType(w *code.Writer) {
+	w.WriteByte('*')
+	writeType(w, t.Item, "pointer type requires an item type")
+}
+
+func (t PtrType) writeTypeSpec(w *code.Writer) {
+	t.writeType(w)
+}
+
 func (t SliceType) simpleType() bool {
 	return (t.Size == nil || t.Size.simpleExpr()) &&
 		(t.Items == nil || t.Items.simpleType())
@@ -112,7 +133,7 @@ func (t SliceType) writeType(w *code.Writer) {
 	w.WriteByte('[')
 	writeExpr(w, t.Size, true, "")
 	w.WriteByte(']')
-	writeType(w, t.Items, "slice type requires an Item type")
+	writeType(w, t.Items, "slice type requires an item type")
 }
 
 func (t SliceType) writeTypeSpec(w *code.Writer) {
@@ -230,6 +251,8 @@ func (t StructType) writeType(w *code.Writer) {
 					Columns: cols,
 				})
 			}
+
+			w.Table(rows...)
 		})
 	}
 
@@ -290,6 +313,7 @@ func writeType(w *code.Writer, t Type, reqMessage string) {
 
 var (
 	_ Type = Symbol{}
+	_ Type = PtrType{}
 	_ Type = SliceType{}
 	_ Type = MapType{}
 	_ Type = InterfaceType{}

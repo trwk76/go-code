@@ -33,6 +33,11 @@ type (
 		Expr Expr
 	}
 
+	CastExpr struct {
+		Type  Type
+		Value Expr
+	}
+
 	SliceExpr struct {
 		Type  Type
 		Items Exprs
@@ -290,6 +295,19 @@ func (e ParExpr) simpleExpr() bool {
 func (e ParExpr) writeExpr(w *code.Writer, singleLine bool) {
 	w.WriteByte('(')
 	writeExpr(w, e.Expr, singleLine, "parenthesis expression requires an inner expression")
+	w.WriteByte(')')
+}
+
+func (e CastExpr) simpleExpr() bool {
+	return (e.Type == nil || e.Type.simpleType()) &&
+		(e.Value == nil || e.Value.simpleExpr())
+}
+
+func (e CastExpr) writeExpr(w *code.Writer, singleLine bool) {
+	w.WriteByte('(')
+	writeType(w, e.Type, "cast expression requires a target type")
+	w.WriteString(")(")
+	writeExpr(w, e.Value, singleLine, "cast expression requires a value expression")
 	w.WriteByte(')')
 }
 
@@ -812,6 +830,7 @@ var (
 	_ Expr = RuneExpr('r')
 	_ Expr = StringExpr("")
 	_ Expr = ParExpr{}
+	_ Expr = CastExpr{}
 	_ Expr = SliceExpr{}
 	_ Expr = MapExpr{}
 	_ Expr = StructExpr{}

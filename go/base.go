@@ -3,10 +3,27 @@ package golang
 import (
 	"fmt"
 	"go/token"
+	"reflect"
 	"strings"
 
 	code "github.com/trwk76/gocode"
 )
+
+func SymbolFor[T any](unit *Unit) Symbol {
+	t := reflect.TypeFor[T]()
+
+	pkg := unit.Imports.Ensure("", t.PkgPath())
+	id := t.Name()
+
+	if idx := strings.IndexByte(id, '['); idx > 0 {
+		id = id[:idx]
+	}
+
+	return Symbol{
+		Package: &pkg,
+		ID:      ID(id),
+	}
+}
 
 type (
 	Comment string
