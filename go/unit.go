@@ -24,6 +24,10 @@ type (
 func (u Unit) Write(w *code.Writer) {
 	u.Prefix.write(w)
 
+	if len(u.Prefix) > 0 {
+		w.Newline()
+	}
+
 	fmt.Fprintf(w, "package %s", u.Package)
 	w.Newline()
 	u.Imports.write(w)

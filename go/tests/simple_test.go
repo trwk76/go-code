@@ -19,3 +19,4 @@ var (
 	_ encoding.TextMarshaler   = ID{}
 	_ encoding.TextUnmarshaler = (*ID)(nil)
 )
+

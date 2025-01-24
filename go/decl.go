@@ -309,10 +309,12 @@ func (d ConstDecls) writeDecl(w *code.Writer) {
 }
 
 func (d FuncDecls) writeDecl(w *code.Writer) {
+	w.Newline()
 	writeDeclItems(w, d)
 }
 
 func (d MethDecls) writeDecl(w *code.Writer) {
+	w.Newline()
 	writeDeclItems(w, d)
 }
 
@@ -409,8 +411,12 @@ func (p Params) simpleParams() bool {
 
 func (p Params) write(w *code.Writer, forceParens bool) {
 	if !forceParens {
+		if len(p) < 1 {
+			return
+		}
+
 		w.Space()
-		forceParens = len(p) > 0 && p[0].ID != ""
+		forceParens = len(p) > 1 || p[0].ID != ""
 	}
 
 	if forceParens {

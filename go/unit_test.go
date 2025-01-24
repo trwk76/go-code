@@ -40,7 +40,8 @@ func TestUnit(t *testing.T) {
 		}
 
 		if !ok {
-			t.Errorf("test '%s' failed: %s\n", item.name, dmp.DiffPrettyText(diffs))
+			t.Error(res)
+			// t.Errorf("test '%s' failed: %s\n", item.name, dmp.DiffPrettyText(diffs))
 		}
 	}
 }
