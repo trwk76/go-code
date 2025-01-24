@@ -33,17 +33,14 @@ func WriteFile(path string, tabString string, f WriteFunc) error {
 }
 
 // WriteString is a short hand for rendering the content of a WriteFunc as a string.
-func WriteString(tabString string, f WriteFunc) (string, error) {
+func WriteString(tabString string, f WriteFunc) string {
 	buf := strings.Builder{}
 	w := NewWriter(&buf, tabString)
 
 	f(&w)
 
-	if err := w.Flush(); err != nil {
-		return buf.String(), err
-	}
-
-	return buf.String(), nil
+	w.Flush()
+	return buf.String()
 }
 
 // NewWriter creates a new Writer that writes to the given io.Writer using the specified tabString for indentation.
@@ -113,6 +110,10 @@ func (w *Writer) Newline() error {
 	return w.WriteByte('\n')
 }
 
+func (w *Writer) Space() error {
+	return w.WriteByte(' ')
+}
+
 func (w *Writer) Indent(f WriteFunc) {
 	w.ind++
 	f(w)
@@ -144,13 +145,16 @@ func (w *Writer) Table(rows ...TableRow) {
 	pad := strings.Repeat(" ", maxw)
 
 	for _, row := range rows {
-		if row.Comments != "" {
-			if _, err := w.WriteString(row.Comments); err != nil {
+		if row.Prefix != "" {
+			if _, err := w.WriteString(row.Prefix); err != nil {
 				panic(err)
 			}
 
-			if err := w.Newline(); err != nil {
-				panic(err)
+			if !w.nl {
+				// Make sure we write the row bulk on a newline
+				if err := w.Newline(); err != nil {
+					panic(err)
+				}
 			}
 		}
 
@@ -185,8 +189,8 @@ type (
 	}
 
 	TableRow struct {
-		Comments string
-		Columns  []string
+		Prefix  string
+		Columns []string
 	}
 
 	WriteFunc func(w *Writer)

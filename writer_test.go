@@ -21,9 +21,9 @@ type (
 )
 
 func (i writerTest) test(t *testing.T) {
-	if res, err := code.WriteString("", i.f); err != nil {
-		t.Error(err)
-	} else if res != i.res {
+	res := code.WriteString("", i.f)
+
+	if res != i.res {
 		t.Errorf("expected:\n%s\ngot:\n%s\n", i.res, res)
 	}
 }
