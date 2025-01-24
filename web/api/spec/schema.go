@@ -2,7 +2,7 @@ package spec
 
 type (
 	NamedSchemas      map[string]Schema
-	NamedSchemaOrRefs map[string]SchemaOrRef
+	NamedSchemaOrRefs map[string]ItemOrRef[Schema]
 	SchemaOrRef       = ItemOrRef[Schema]
 
 	Schema struct {
