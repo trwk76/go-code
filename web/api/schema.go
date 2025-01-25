@@ -3,7 +3,6 @@ package api
 import (
 	"errors"
 
-	golang "github.com/trwk76/gocode/go"
 	"github.com/trwk76/gocode/web/api/spec"
 )
 
@@ -33,7 +32,6 @@ type (
 
 	SimpleSchema struct {
 		Spec spec.Schema
-		Code golang.Type
 	}
 
 	ArraySchema struct {
@@ -41,7 +39,6 @@ type (
 		MinItems uint64
 		MaxItems uint64
 		Unique   bool
-		Code     golang.Type
 	}
 
 	MapSchema struct {
@@ -58,7 +55,6 @@ type (
 		Name     string
 		Schema   Schema
 		Optional bool
-		Code     golang.ID
 	}
 
 	SchemaRef struct {
@@ -75,32 +71,26 @@ type (
 var (
 	Boolean SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeBoolean},
-		Code: golang.Bool,
 	}
 
 	Int32 SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeInteger, Format: spec.FormatInt32},
-		Code: golang.Int32,
 	}
 
 	Int64 SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeInteger, Format: spec.FormatInt64},
-		Code: golang.Int64,
 	}
 
 	Floaat SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeNumber, Format: spec.FormatFloat},
-		Code: golang.Float32,
 	}
 
 	Double SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeNumber, Format: spec.FormatDouble},
-		Code: golang.Float64,
 	}
 
 	String SimpleSchema = SimpleSchema{
 		Spec: spec.Schema{Type: spec.TypeString},
-		Code: golang.String,
 	}
 )
 

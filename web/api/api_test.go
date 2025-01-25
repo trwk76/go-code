@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	golang "github.com/trwk76/gocode/go"
 	"github.com/trwk76/gocode/web/api"
 	"github.com/trwk76/gocode/web/api/spec"
 )
@@ -45,9 +44,8 @@ func TestAPI(t *testing.T) {
 		},
 	})
 
-	for name, body := range a.Generate(golang.PkgName("v1")) {
-		fmt.Printf("%s: %s\n", name, string(body))
-	}
+	spec := a.Generate()
+	fmt.Printf("%s\n", string(spec.YAML()))
 }
 
 var (

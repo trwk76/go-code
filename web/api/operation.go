@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 
-	golang "github.com/trwk76/gocode/go"
 	"github.com/trwk76/gocode/web/api/spec"
 )
 
@@ -27,7 +26,7 @@ type (
 	}
 )
 
-func (o *Operation) build(ctx buildContext, method string, acceptBody bool, body *golang.BlockStmt) *spec.Operation {
+func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spec.Operation {
 	if o == nil {
 		return nil
 	}
@@ -66,23 +65,6 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool, body
 		s := o.RequestBody.reqBodySpec()
 		res.RequestBody = &s
 	}
-
-	*body = append(*body, golang.ExprStmt{
-		Expr: golang.CallExpr{
-			Func: golang.MemberExpr{
-				Value: golang.Symbol{
-					ID: golang.ID("m"),
-				},
-				ID:    golang.ID("HandleFunc"),
-			},
-			Args: golang.Exprs{
-				golang.StringExpr(fmt.Sprintf("%s %s", method, ctx.path)),
-				golang.Symbol{
-					ID: golang.ID(o.ID),
-				},
-			},
-		},
-	})
 
 	return res
 }
