@@ -2,6 +2,10 @@ package api
 
 import "github.com/trwk76/gocode/web/api/spec"
 
+const (
+	MediaTypeJSON string = "application/json"
+)
+
 type (
 	MediaTypes map[string]MediaType
 

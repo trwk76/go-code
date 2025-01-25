@@ -93,6 +93,16 @@ func newParameters(api *API) Parameters {
 	}
 }
 
+func (p Parameters) spec() spec.NamedParameterOrRefs {
+	res := make(spec.NamedParameterOrRefs)
+
+	for key, impl := range p.keys {
+		res[key] = spec.ParameterOrRef{Item: impl.spec()}
+	}
+
+	return res
+}
+
 var (
 	_ Parameter = (*ParameterImpl)(nil)
 	_ Parameter = (*ParameterRef)(nil)

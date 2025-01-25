@@ -218,6 +218,16 @@ func (r *SchemaRef) schemaSpec() spec.SchemaOrRef {
 	return spec.SchemaOrRef{Ref: spec.ComponentsRef("schemas", r.key)}
 }
 
+func (s Schemas) spec() spec.NamedSchemas {
+	res := make(spec.NamedSchemas)
+
+	for key, impl := range s.keys {
+		res[key] = impl.schema()
+	}
+
+	return res
+}
+
 var (
 	_ SchemaImpl = (*SimpleSchema)(nil)
 	_ SchemaImpl = (*ArraySchema)(nil)

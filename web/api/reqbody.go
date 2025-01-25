@@ -69,6 +69,16 @@ func newRequestBodies(api *API) RequestBodies {
 	}
 }
 
+func (r RequestBodies) spec() spec.NamedRequestBodyOrRefs {
+	res := make(spec.NamedRequestBodyOrRefs)
+
+	for key, impl := range r.keys {
+		res[key] = spec.RequestBodyOrRef{Item: impl.spec()}
+	}
+
+	return res
+}
+
 var (
 	_ RequestBody = (*RequestBodyImpl)(nil)
 	_ RequestBody = (*RequestBodyRef)(nil)

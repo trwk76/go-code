@@ -67,6 +67,16 @@ func newResponses(api *API) Responses {
 	}
 }
 
+func (r Responses) spec() spec.NamedResponseOrRefs {
+	res := make(spec.NamedResponseOrRefs)
+
+	for key, impl := range r.keys {
+		res[key] = spec.ResponseOrRef{Item: impl.spec()}
+	}
+
+	return res
+}
+
 var (
 	_ Response = (*ResponseImpl)(nil)
 	_ Response = (*ResponseRef)(nil)
