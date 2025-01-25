@@ -67,11 +67,17 @@ func newResponses(api *API) Responses {
 	}
 }
 
-func (r Responses) spec() spec.NamedResponseOrRefs {
+func (r Responses) spec(g Generator) spec.NamedResponseOrRefs {
 	res := make(spec.NamedResponseOrRefs)
 
 	for key, impl := range r.keys {
-		res[key] = spec.ResponseOrRef{Item: impl.spec()}
+		s := impl.spec()
+
+		res[key] = spec.ResponseOrRef{Item: s}
+
+		if g != nil {
+			g.Response(key, s)
+		}
 	}
 
 	return res

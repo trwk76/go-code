@@ -93,11 +93,17 @@ func newParameters(api *API) Parameters {
 	}
 }
 
-func (p Parameters) spec() spec.NamedParameterOrRefs {
+func (p Parameters) spec(g Generator) spec.NamedParameterOrRefs {
 	res := make(spec.NamedParameterOrRefs)
 
 	for key, impl := range p.keys {
-		res[key] = spec.ParameterOrRef{Item: impl.spec()}
+		s := impl.spec()
+
+		res[key] = spec.ParameterOrRef{Item: s}
+
+		if g != nil {
+			g.Parameter(key, s)
+		}
 	}
 
 	return res

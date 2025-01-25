@@ -44,7 +44,7 @@ func TestAPI(t *testing.T) {
 		},
 	})
 
-	spec := a.Generate()
+	spec := a.Generate(nil)
 	fmt.Printf("%s\n", string(spec.YAML()))
 }
 

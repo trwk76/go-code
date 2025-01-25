@@ -51,7 +51,7 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spe
 		params = append(params, item.paramSpec())
 	}
 
-	res := &spec.Operation{
+	res := spec.Operation{
 		OperationID: o.ID,
 		Summary:     o.Summary,
 		Description: o.Description,
@@ -66,7 +66,11 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spe
 		res.RequestBody = &s
 	}
 
-	return res
+	if ctx.gen != nil {
+		ctx.gen.Operation(ctx.gen, method, res)
+	}
+
+	return &res
 }
 
 func (r ResponseMap) spec() spec.Responses {

@@ -208,11 +208,17 @@ func (r *SchemaRef) schemaSpec() spec.SchemaOrRef {
 	return spec.SchemaOrRef{Ref: spec.ComponentsRef("schemas", r.key)}
 }
 
-func (s Schemas) spec() spec.NamedSchemas {
+func (s Schemas) spec(g Generator) spec.NamedSchemas {
 	res := make(spec.NamedSchemas)
 
 	for key, impl := range s.keys {
-		res[key] = impl.schema()
+		s := impl.schema()
+
+		res[key] = s
+
+		if g != nil {
+			g.Schema(key, s)
+		}
 	}
 
 	return res

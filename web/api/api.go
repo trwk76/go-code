@@ -38,17 +38,17 @@ type (
 	}
 )
 
-func (a *API) Generate() spec.OpenAPI {
+func (a *API) Generate(g Generator) spec.OpenAPI {
 	res := spec.OpenAPI{
 		OpenAPI: spec.Version,
 		Info:    a.Info,
 		Servers: []spec.Server{{URL: a.baseURL, Description: "Current server."}},
 		Paths:   make(spec.Paths),
 		Components: &spec.Components{
-			Schemas:         a.Schemas.spec(),
-			Parameters:      a.Parameters.spec(),
-			Responses:       a.Responses.spec(),
-			RequestBodies:   a.RequestBodies.spec(),
+			Schemas:         a.Schemas.spec(g),
+			Parameters:      a.Parameters.spec(g),
+			Responses:       a.Responses.spec(g),
+			RequestBodies:   a.RequestBodies.spec(g),
 			SecuritySchemes: make(spec.NamedSecuritySchemeOrRefs),
 		},
 		Security: a.Security,
@@ -62,6 +62,7 @@ func (a *API) Generate() spec.OpenAPI {
 	a.Paths.build(
 		buildContext{
 			api:    a,
+			gen:    g,
 			path:   "",
 			params: nil,
 			tags:   nil,
