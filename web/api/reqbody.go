@@ -73,12 +73,10 @@ func (r RequestBodies) spec(g Generator) spec.NamedRequestBodyOrRefs {
 	res := make(spec.NamedRequestBodyOrRefs)
 
 	for key, impl := range r.keys {
-		s := impl.spec()
-
-		res[key] = spec.RequestBodyOrRef{Item: s}
+		res[key] = spec.RequestBodyOrRef{Item: impl.spec()}
 
 		if g != nil {
-			g.RequestBody(key, s)
+			g.RequestBody(key, impl)
 		}
 	}
 

@@ -67,7 +67,7 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spe
 	}
 
 	if ctx.gen != nil {
-		ctx.gen.Operation(ctx.gen, method, res)
+		ctx.gen.Operation(ctx.ghdl, method, o, res)
 	}
 
 	return &res

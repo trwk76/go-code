@@ -50,7 +50,7 @@ func (c buildContext) paramChild(param Parameter) buildContext {
 	name := fmt.Sprintf("{%s}", pi.Name)
 
 	if c.gen != nil {
-		ghdl = c.gen.ParamPath(c.ghdl, name, pi.spec())
+		ghdl = c.gen.ParamPath(c.ghdl, name, pi)
 	}
 
 	return buildContext{

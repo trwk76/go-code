@@ -29,7 +29,7 @@ func (m MediaType) spec() spec.MediaType {
 	res := spec.MediaType{}
 
 	if m.Schema != nil {
-		s := m.Schema.schemaSpec()
+		s := m.Schema.spec()
 		res.Schema = &s
 	}
 

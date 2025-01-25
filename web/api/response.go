@@ -71,12 +71,10 @@ func (r Responses) spec(g Generator) spec.NamedResponseOrRefs {
 	res := make(spec.NamedResponseOrRefs)
 
 	for key, impl := range r.keys {
-		s := impl.spec()
-
-		res[key] = spec.ResponseOrRef{Item: s}
+		res[key] = spec.ResponseOrRef{Item: impl.spec()}
 
 		if g != nil {
-			g.Response(key, s)
+			g.Response(key, impl)
 		}
 	}
 

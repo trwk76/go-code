@@ -20,25 +20,19 @@ func TestAPI(t *testing.T) {
 		},
 	})
 
-	schResp = a.Schemas.Add("response", &api.StructSchema{
+	schResp = a.Schemas.Add("response", &api.Struct{
 		Fields: []api.StructField{
 			{
 				Name: "corrId",
-				Schema: &api.SimpleSchema{
-					Spec: spec.Schema{
-						Type: spec.TypeString,
-						Format: spec.Format("uuid"),
-					},
+				Schema: &api.String{
+					Format: spec.Format("uuid"),
 				},
 			},
 			{
 				Name: "status",
-				Schema: &api.SimpleSchema{
-					Spec: spec.Schema{
-						Type: spec.TypeInteger,
-						Minimum: 200,
-						Maximum: 599,
-					},
+				Schema: &api.Integer{
+					Minimum: 200,
+					Maximum: 599,
 				},
 			},
 		},

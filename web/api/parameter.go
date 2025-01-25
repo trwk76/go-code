@@ -63,8 +63,8 @@ func (p *ParameterImpl) spec() spec.Parameter {
 	}
 
 	if p.Schema != nil {
-		sch := p.Schema.schemaSpec()
-		s := p.Schema.schemaImpl().schema()
+		sch := p.Schema.spec()
+		s := p.Schema.Impl().Spec()
 
 		switch s.Type {
 		case spec.TypeBoolean, spec.TypeInteger, spec.TypeNumber, spec.TypeString, spec.TypeArray:
@@ -97,12 +97,10 @@ func (p Parameters) spec(g Generator) spec.NamedParameterOrRefs {
 	res := make(spec.NamedParameterOrRefs)
 
 	for key, impl := range p.keys {
-		s := impl.spec()
-
-		res[key] = spec.ParameterOrRef{Item: s}
+		res[key] = spec.ParameterOrRef{Item: impl.spec()}
 
 		if g != nil {
-			g.Parameter(key, s)
+			g.Parameter(key, impl)
 		}
 	}
 
