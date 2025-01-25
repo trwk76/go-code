@@ -9,6 +9,14 @@ import (
 	code "github.com/trwk76/gocode"
 )
 
+func IsID(s string) bool {
+	return token.IsIdentifier(s)
+}
+
+func IsKeyword(s string) bool {
+	return token.IsKeyword(s)
+}
+
 func SymbolFor[T any](unit *Unit) Symbol {
 	t := reflect.TypeFor[T]()
 
