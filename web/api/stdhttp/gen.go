@@ -3,6 +3,7 @@ package stdhttp
 import (
 	"net/http"
 	"reflect"
+	"sort"
 
 	code "github.com/trwk76/gocode"
 	g "github.com/trwk76/gocode/go"
@@ -42,9 +43,13 @@ func (gen *Generator) Initialize(baseURL string) {
 }
 
 func (gen *Generator) Finalize(spec spec.OpenAPI) {
+	sort.Slice(gen.MdlTypes, func(i, j int) bool {
+		return gen.MdlTypes[i].ID < gen.MdlTypes[j].ID
+	})
+
 	if gen.mapUnit != nil {
 		mux := g.SymbolFor[http.ServeMux](gen.mapUnit)
-		
+
 		gen.mapUnit.Decls = append(
 			gen.mapUnit.Decls,
 			g.FuncDecls{
@@ -54,7 +59,7 @@ func (gen *Generator) Finalize(spec spec.OpenAPI) {
 						ID:   varMux.ID,
 						Type: g.PtrType{Item: mux},
 					}},
-					Body: gen.mapStmts,
+					Body: gen.MapStmts,
 				},
 			},
 		)
@@ -63,7 +68,7 @@ func (gen *Generator) Finalize(spec spec.OpenAPI) {
 	if gen.mdlUnit != nil {
 		gen.mdlUnit.Decls = append(
 			gen.mdlUnit.Decls,
-			gen.mdlTypes,
+			gen.MdlTypes,
 		)
 	}
 }
@@ -72,13 +77,14 @@ type (
 	Generator struct {
 		baseURL   string
 		mapUnit   *g.Unit
-		mapStmts  g.BlockStmt
 		mdlUnit   *g.Unit
-		mdlTypes  g.TypeDecls
 		opIDXform code.IDTransformer
 		opPath    OperationPathFunc
 		opWrap    OperationWrapFunc
 		tcnv      reflect.Type
+
+		MapStmts g.BlockStmt
+		MdlTypes g.TypeDecls
 	}
 )
 

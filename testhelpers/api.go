@@ -5,15 +5,17 @@ import (
 	"net/http"
 
 	"github.com/trwk76/gocode/web/api"
+	"github.com/trwk76/gocode/web/api/spec"
 )
 
 func SetupAPI(a *api.API) {
 	var (
-		schResp         api.SchemaRef
-		schPageResp     api.SchemaRef
-		schErrResp      api.SchemaRef
-		schCountry      api.SchemaRef
-		respError       api.ResponseRef
+		schResp     api.SchemaRef
+		schPageResp api.SchemaRef
+		schErrResp  api.SchemaRef
+		schCountry  api.SchemaRef
+		schUUID     api.SchemaRef
+		respError   api.ResponseRef
 	)
 
 	respError = a.Responses.Add("respErr", &api.ResponseImpl{
@@ -28,10 +30,8 @@ func SetupAPI(a *api.API) {
 	schResp = a.Schemas.Add("response", &api.Struct{
 		Fields: []api.StructField{
 			{
-				Name: "corrId",
-				Schema: &api.Uinteger{
-					Minimum: 1,
-				},
+				Name:   "corrId",
+				Schema: &schUUID,
 			},
 			{
 				Name: "status",
@@ -47,7 +47,7 @@ func SetupAPI(a *api.API) {
 		Bases: []api.Schema{&schResp},
 		Fields: []api.StructField{
 			{
-				Name: "message",
+				Name:   "message",
 				Schema: &api.String{},
 			},
 		},
@@ -57,7 +57,7 @@ func SetupAPI(a *api.API) {
 		Bases: []api.Schema{&schResp},
 		Fields: []api.StructField{
 			{
-				Name: "totalCount",
+				Name:   "totalCount",
 				Schema: &api.Uinteger{},
 			},
 			{
@@ -78,8 +78,9 @@ func SetupAPI(a *api.API) {
 
 	a.Paths = api.NamedPaths{
 		"country": api.Path{
+			OperationID: "country",
 			GET: &api.Operation{
-				ID: "countrySearch",
+				ID: "Search",
 				Responses: api.ResponseMap{
 					Codes: map[int]api.Response{
 						http.StatusOK: &api.ResponseImpl{
@@ -114,7 +115,7 @@ func SetupAPI(a *api.API) {
 				Schema: &api.String{
 					MinLength: 2,
 					MaxLength: 2,
-					Pattern: "^[A-Z]{2}$",
+					Pattern:   "^[A-Z]{2}$",
 				},
 			},
 			{
@@ -122,13 +123,17 @@ func SetupAPI(a *api.API) {
 				Schema: &api.String{
 					MinLength: 3,
 					MaxLength: 3,
-					Pattern: "^[A-Z]{3}$",
+					Pattern:   "^[A-Z]{3}$",
 				},
 			},
 			{
-				Name: "name",
+				Name:   "name",
 				Schema: &api.String{},
 			},
 		},
+	})
+
+	schUUID = a.Schemas.Add("uuid", &api.String{
+		Format: spec.Format("uuid"),
 	})
 }

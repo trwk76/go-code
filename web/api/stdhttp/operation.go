@@ -15,15 +15,15 @@ func (gen *Generator) Operation(path any, method string, o *api.Operation, spec 
 	}
 
 	val := gen.opWrap(
-		g.Symbol{ID: g.ID(gen.opIDXform(o.ID))},
+		g.Symbol{ID: g.ID(gen.opIDXform(spec.OperationID))},
 		pth.path,
 		method,
 		o,
 		spec,
 	)
 
-	gen.mapStmts = append(
-		gen.mapStmts,
+	gen.MapStmts = append(
+		gen.MapStmts,
 		g.ExprStmt{
 			Expr: g.CallExpr{
 				Func: g.MemberExpr{

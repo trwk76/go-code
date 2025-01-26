@@ -8,6 +8,7 @@ import (
 
 type (
 	Path struct {
+		OperationID string
 		Summary     string
 		Description string
 		GET         *Operation
@@ -32,6 +33,7 @@ type (
 )
 
 func (p Path) build(ctx buildContext, dest spec.Paths) {
+	ctx.opID += p.OperationID
 	ctx.tags = mergeTags(ctx.tags, p.Tags)
 
 	p.Named.build(ctx, dest)

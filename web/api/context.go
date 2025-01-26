@@ -13,6 +13,7 @@ type (
 		gen    Generator
 		ghdl   any
 		path   string
+		opID   string
 		params []Parameter
 		tags   []string
 	}

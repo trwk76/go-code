@@ -52,7 +52,7 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spe
 	}
 
 	res := spec.Operation{
-		OperationID: o.ID,
+		OperationID: ctx.opID + o.ID,
 		Summary:     o.Summary,
 		Description: o.Description,
 		Parameters:  params,
