@@ -7,6 +7,7 @@ import (
 	code "github.com/trwk76/gocode"
 	g "github.com/trwk76/gocode/go"
 	"github.com/trwk76/gocode/web/api"
+	"github.com/trwk76/gocode/web/api/spec"
 )
 
 func NewGenerator(mapUnit *g.Unit, modelUnit *g.Unit, opIDXform code.IDTransformer, opPath OperationPathFunc, opWrapper OperationWrapFunc, typeConv TypeConverter) Generator {
@@ -40,24 +41,31 @@ func (gen *Generator) Initialize(baseURL string) {
 	gen.baseURL = baseURL
 }
 
-func (gen *Generator) Finalize() {
-	mux := g.SymbolFor[http.ServeMux](gen.mapUnit)
-
-	gen.mapUnit.Decls = append(
-		gen.mapUnit.Decls,
-		g.FuncDecls{
-			g.FuncDecl{
-				ID: g.ID("Map"),
-				Params: g.Params{
-					{
-						ID:   g.ID("m"),
+func (gen *Generator) Finalize(spec spec.OpenAPI) {
+	if gen.mapUnit != nil {
+		mux := g.SymbolFor[http.ServeMux](gen.mapUnit)
+		
+		gen.mapUnit.Decls = append(
+			gen.mapUnit.Decls,
+			g.FuncDecls{
+				g.FuncDecl{
+					ID: g.ID("Map"),
+					Params: g.Params{{
+						ID:   varMux.ID,
 						Type: g.PtrType{Item: mux},
-					},
+					}},
+					Body: gen.mapStmts,
 				},
-				Body: gen.mapStmts,
 			},
-		},
-	)
+		)
+	}
+
+	if gen.mdlUnit != nil {
+		gen.mdlUnit.Decls = append(
+			gen.mdlUnit.Decls,
+			gen.mdlTypes,
+		)
+	}
 }
 
 type (

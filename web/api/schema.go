@@ -162,30 +162,39 @@ func (i *Enum) Spec() spec.Schema {
 }
 
 func (i *Integer) Spec() spec.Schema {
-	return spec.Schema{
+	res := spec.Schema{
 		Type:       spec.TypeInteger,
 		Format:     i.Format,
 		Minimum:    i.Minimum,
 		Maximum:    i.Maximum,
-		MultipleOf: i.MultipleOf,
 	}
+
+	if i.MultipleOf != 0 {
+		res.MultipleOf = i.MultipleOf
+	}
+
+	return res
 }
 
 func (i *Uinteger) Spec() spec.Schema {
-	return spec.Schema{
+	res := spec.Schema{
 		Type:       spec.TypeInteger,
 		Format:     i.Format,
 		Minimum:    i.Minimum,
 		Maximum:    i.Maximum,
-		MultipleOf: i.MultipleOf,
 	}
+
+	if i.MultipleOf != 0 {
+		res.MultipleOf = i.MultipleOf
+	}
+
+	return res
 }
 
 func (i *Float) Spec() spec.Schema {
 	res := spec.Schema{
 		Type:       spec.TypeNumber,
 		Format:     i.Format,
-		MultipleOf: i.MultipleOf,
 	}
 
 	if i.MinimumExclusive {
@@ -198,6 +207,10 @@ func (i *Float) Spec() spec.Schema {
 		res.ExclusiveMaximum = i.Maximum
 	} else {
 		res.Maximum = i.Maximum
+	}
+
+	if i.MultipleOf != 0 {
+		res.MultipleOf = i.MultipleOf
 	}
 
 	return res

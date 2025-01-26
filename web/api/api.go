@@ -11,6 +11,8 @@ func NewAPI(baseURL string) *API {
 		baseURL = "/" + baseURL
 	}
 
+	baseURL = strings.TrimSuffix(baseURL, "/")
+
 	res := &API{
 		baseURL: baseURL,
 	}
@@ -73,6 +75,10 @@ func (a *API) Generate(g Generator) spec.OpenAPI {
 		},
 		res.Paths,
 	)
+
+	if g != nil {
+		g.Finalize(res)
+	}
 
 	return res
 }

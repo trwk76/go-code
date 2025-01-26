@@ -38,7 +38,7 @@ func (gen *Generator) Map(key string, impl *api.Map) {
 }
 
 func (gen *Generator) Struct(key string, impl *api.Struct) {
-	gen.AddTypeDecl(key, g.TypeAlias{Target: convertType(gen.tcnv, impl, "")})
+	gen.AddTypeDecl(key, convertType(gen.tcnv, impl, ""))
 }
 
 func (gen *Generator) AddTypeDecl(name string, spec g.TypeSpec) {

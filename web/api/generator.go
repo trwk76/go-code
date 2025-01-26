@@ -22,6 +22,8 @@ type (
 		NamedPath(parent any, name string) any
 		ParamPath(parent any, name string, param Parameter) any
 		Operation(path any, method string, op *Operation, spec spec.Operation)
+
+		Finalize(spec spec.OpenAPI)
 	}
 
 	MultiGenerator []Generator
@@ -126,6 +128,10 @@ func (m MultiGenerator) Operation(path any, method string, op *Operation, spec s
 
 		g.Operation(p, method, op, spec)
 	})
+}
+
+func (m MultiGenerator) Finalize(spec spec.OpenAPI) {
+	m.each(func(idx int, g Generator) { g.Finalize(spec) })
 }
 
 func (m MultiGenerator) each(f func(idx int, g Generator)) {

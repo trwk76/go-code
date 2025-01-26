@@ -470,7 +470,7 @@ func writeDeclItems[T declItem](w *code.Writer, items []T) {
 			w.Newline()
 		}
 
-		if cnt := countSimpleDeclItems(items); cnt > 0 {
+		if cnt := countSimpleDeclItems(items); cnt > 1 {
 			// Make table out of these items
 			rows := make([]code.TableRow, cnt)
 
