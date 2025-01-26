@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"strings"
 
-	code "github.com/trwk76/gocode"
+	code "github.com/trwk76/go-code"
 )
 
 func IsID(s string) bool {

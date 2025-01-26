@@ -1,4 +1,4 @@
-module github.com/trwk76/gocode
+module github.com/trwk76/go-code
 
 go 1.23.5
 

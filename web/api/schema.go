@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/trwk76/gocode/web/api/spec"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 func NewEnum[T comparable](values ...T) Enum {
@@ -163,10 +163,10 @@ func (i *Enum) Spec() spec.Schema {
 
 func (i *Integer) Spec() spec.Schema {
 	res := spec.Schema{
-		Type:       spec.TypeInteger,
-		Format:     i.Format,
-		Minimum:    i.Minimum,
-		Maximum:    i.Maximum,
+		Type:    spec.TypeInteger,
+		Format:  i.Format,
+		Minimum: i.Minimum,
+		Maximum: i.Maximum,
 	}
 
 	if i.MultipleOf != 0 {
@@ -178,10 +178,10 @@ func (i *Integer) Spec() spec.Schema {
 
 func (i *Uinteger) Spec() spec.Schema {
 	res := spec.Schema{
-		Type:       spec.TypeInteger,
-		Format:     i.Format,
-		Minimum:    i.Minimum,
-		Maximum:    i.Maximum,
+		Type:    spec.TypeInteger,
+		Format:  i.Format,
+		Minimum: i.Minimum,
+		Maximum: i.Maximum,
 	}
 
 	if i.MultipleOf != 0 {
@@ -193,8 +193,8 @@ func (i *Uinteger) Spec() spec.Schema {
 
 func (i *Float) Spec() spec.Schema {
 	res := spec.Schema{
-		Type:       spec.TypeNumber,
-		Format:     i.Format,
+		Type:   spec.TypeNumber,
+		Format: i.Format,
 	}
 
 	if i.MinimumExclusive {

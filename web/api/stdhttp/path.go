@@ -1,6 +1,6 @@
 package stdhttp
 
-import "github.com/trwk76/gocode/web/api"
+import "github.com/trwk76/go-code/web/api"
 
 func (gen *Generator) NamedPath(parent any, name string) any {
 	var res pathHandle

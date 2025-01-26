@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	code "github.com/trwk76/gocode"
+	code "github.com/trwk76/go-code"
 )
 
 func TestSplit(t *testing.T) {

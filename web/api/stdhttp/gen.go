@@ -5,10 +5,10 @@ import (
 	"reflect"
 	"sort"
 
-	code "github.com/trwk76/gocode"
-	g "github.com/trwk76/gocode/go"
-	"github.com/trwk76/gocode/web/api"
-	"github.com/trwk76/gocode/web/api/spec"
+	code "github.com/trwk76/go-code"
+	g "github.com/trwk76/go-code/go"
+	"github.com/trwk76/go-code/web/api"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 func NewGenerator(mapUnit *g.Unit, modelUnit *g.Unit, opIDXform code.IDTransformer, opPath OperationPathFunc, opWrapper OperationWrapFunc, typeConv TypeConverter) Generator {

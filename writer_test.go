@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	code "github.com/trwk76/gocode"
+	code "github.com/trwk76/go-code"
 )
 
 func TestWriter(t *testing.T) {

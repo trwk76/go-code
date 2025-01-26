@@ -3,9 +3,9 @@ package stdhttp
 import (
 	"fmt"
 
-	g "github.com/trwk76/gocode/go"
-	"github.com/trwk76/gocode/web/api"
-	"github.com/trwk76/gocode/web/api/spec"
+	g "github.com/trwk76/go-code/go"
+	"github.com/trwk76/go-code/web/api"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 func (gen *Generator) Operation(path any, method string, o *api.Operation, spec spec.Operation) {

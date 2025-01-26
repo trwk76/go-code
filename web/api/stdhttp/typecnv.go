@@ -5,9 +5,9 @@ import (
 	"math"
 	"reflect"
 
-	code "github.com/trwk76/gocode"
-	g "github.com/trwk76/gocode/go"
-	"github.com/trwk76/gocode/web/api"
+	code "github.com/trwk76/go-code"
+	g "github.com/trwk76/go-code/go"
+	"github.com/trwk76/go-code/web/api"
 )
 
 type (

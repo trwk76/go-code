@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strconv"
 
-	code "github.com/trwk76/gocode"
+	code "github.com/trwk76/go-code"
 )
 
 var (

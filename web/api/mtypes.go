@@ -1,6 +1,6 @@
 package api
 
-import "github.com/trwk76/gocode/web/api/spec"
+import "github.com/trwk76/go-code/web/api/spec"
 
 const (
 	MediaTypeJSON string = "application/json"

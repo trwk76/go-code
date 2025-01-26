@@ -3,9 +3,9 @@ package stdhttp
 import (
 	"slices"
 
-	g "github.com/trwk76/gocode/go"
-	"github.com/trwk76/gocode/web/api"
-	"github.com/trwk76/gocode/web/api/spec"
+	g "github.com/trwk76/go-code/go"
+	"github.com/trwk76/go-code/web/api"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 func (gen *Generator) Boolean(key string, impl *api.Boolean) {

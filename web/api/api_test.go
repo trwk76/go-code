@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/trwk76/gocode/web/api"
-	"github.com/trwk76/gocode/testhelpers"
+	"github.com/trwk76/go-code/testhelpers"
+	"github.com/trwk76/go-code/web/api"
 )
 
 func TestAPI(t *testing.T) {

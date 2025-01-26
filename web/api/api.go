@@ -3,7 +3,7 @@ package api
 import (
 	"strings"
 
-	"github.com/trwk76/gocode/web/api/spec"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 func NewAPI(baseURL string) *API {

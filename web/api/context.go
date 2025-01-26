@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/trwk76/gocode/web/api/spec"
+	"github.com/trwk76/go-code/web/api/spec"
 )
 
 type (

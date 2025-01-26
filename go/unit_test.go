@@ -8,8 +8,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	code "github.com/trwk76/gocode"
-	golang "github.com/trwk76/gocode/go"
+	code "github.com/trwk76/go-code"
+	golang "github.com/trwk76/go-code/go"
 )
 
 func TestUnit(t *testing.T) {

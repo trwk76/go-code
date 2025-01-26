@@ -3,7 +3,7 @@ package code_test
 import (
 	"testing"
 
-	code "github.com/trwk76/gocode"
+	code "github.com/trwk76/go-code"
 )
 
 func TestCase(t *testing.T) {

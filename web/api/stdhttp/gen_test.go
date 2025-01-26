@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	code "github.com/trwk76/gocode"
-	golang "github.com/trwk76/gocode/go"
-	"github.com/trwk76/gocode/testhelpers"
-	"github.com/trwk76/gocode/web/api"
-	"github.com/trwk76/gocode/web/api/stdhttp"
+	code "github.com/trwk76/go-code"
+	golang "github.com/trwk76/go-code/go"
+	"github.com/trwk76/go-code/testhelpers"
+	"github.com/trwk76/go-code/web/api"
+	"github.com/trwk76/go-code/web/api/stdhttp"
 )
 
 func TestGen(t *testing.T) {
