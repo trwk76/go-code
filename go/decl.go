@@ -109,7 +109,7 @@ func (d ConstDecl) simpleDeclItem() bool {
 
 func (d ConstDecl) declItemRow() code.TableRow {
 	res := code.TableRow{
-		Prefix: string(d.Comment),
+		Prefix: commentString(d.Comment),
 		Columns: []string{
 			idString(d.ID),
 			typeString(d.Type, "constant declaration requires a type"),
@@ -149,7 +149,7 @@ func (d FuncDecl) simpleDeclItem() bool {
 
 func (d FuncDecl) declItemRow() code.TableRow {
 	return code.TableRow{
-		Prefix: string(d.Comment),
+		Prefix: commentString(d.Comment),
 		Columns: []string{
 			"func",
 			idString(d.ID) + genParamsString(d.GenParams) + paramsString(d.Params, true) + paramsString(d.Return, false),
@@ -179,7 +179,7 @@ func (d MethDecl) simpleDeclItem() bool {
 
 func (d MethDecl) declItemRow() code.TableRow {
 	return code.TableRow{
-		Prefix: string(d.Comment),
+		Prefix: commentString(d.Comment),
 		Columns: []string{
 			"func",
 			paramsString(Params{d.Receiver}, true),
@@ -207,7 +207,7 @@ func (d TypeDecl) simpleDeclItem() bool {
 
 func (d TypeDecl) declItemRow() code.TableRow {
 	return code.TableRow{
-		Prefix: string(d.Comment),
+		Prefix: commentString(d.Comment),
 		Columns: []string{
 			idString(d.ID) + genParamsString(d.GenParams),
 			typeSpecString(d.Spec),
@@ -244,7 +244,7 @@ func (d VarDecl) simpleDeclItem() bool {
 
 func (d VarDecl) declItemRow() code.TableRow {
 	res := code.TableRow{
-		Prefix: string(d.Comment),
+		Prefix: commentString(d.Comment),
 		Columns: []string{
 			idString(d.ID),
 			typeString(d.Type, "variable declaration requires a type"),
@@ -282,6 +282,10 @@ func (a TypeAlias) simpleTypeSpec() bool {
 func (a TypeAlias) writeTypeSpec(w *code.Writer) {
 	w.WriteString("= ")
 	a.Target.writeType(w)
+}
+
+func commentString(c Comment) string {
+	return writeString(func(w *code.Writer) { c.write(w) })
 }
 
 func typeSpecString(s TypeSpec) string {
