@@ -9,7 +9,7 @@ import (
 
 type (
 	Operation struct {
-		ID          string
+		OperationID string
 		Summary     string
 		Description string
 		Parameters  []Parameter
@@ -52,7 +52,7 @@ func (o *Operation) build(ctx buildContext, method string, acceptBody bool) *spe
 	}
 
 	res := spec.Operation{
-		OperationID: ctx.opID + o.ID,
+		OperationID: ctx.opID + o.OperationID,
 		Summary:     o.Summary,
 		Description: o.Description,
 		Parameters:  params,

@@ -31,6 +31,7 @@ func (c buildContext) namedChild(name string) buildContext {
 		gen:    c.gen,
 		ghdl:   ghdl,
 		path:   c.path + "/" + name,
+		opID:   c.opID,
 		params: c.params,
 	}
 }
@@ -59,6 +60,7 @@ func (c buildContext) paramChild(param Parameter) buildContext {
 		gen:    c.gen,
 		ghdl:   ghdl,
 		path:   c.path + "/" + name,
+		opID:   c.opID,
 		params: append(c.params, param),
 	}
 }
