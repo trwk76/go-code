@@ -2,6 +2,7 @@ package golang
 
 import (
 	"errors"
+	"strings"
 
 	code "github.com/trwk76/go-code"
 )
@@ -71,6 +72,24 @@ type (
 		Stmts []Stmt
 	}
 )
+
+func (c Comment) simpleStmt() bool {
+	return !strings.ContainsRune(string(c), '\n')
+}
+
+func (c Comment) writeStmt(w *code.Writer, singleLine bool) {
+	if len(c) < 1 {
+		return
+	}
+
+	if singleLine {
+		w.WriteString("/*")
+		w.WriteString(string(c))
+		w.WriteString(" */")
+	} else {
+		c.write(w)
+	}
+}
 
 func (s AssignStmt) initStmt() {}
 
@@ -389,6 +408,7 @@ func writeStmt(w *code.Writer, s Stmt, singleLine bool, reqMessage string) {
 var (
 	_ InitStmt = AssignStmt{}
 	_ ElseStmt = BlockStmt{}
+	_ Stmt     = Comment("")
 	_ Stmt     = BreakStmt{}
 	_ Stmt     = ContinueStmt{}
 	_ Stmt     = DeferStmt{}
