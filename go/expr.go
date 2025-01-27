@@ -324,6 +324,10 @@ func (e SliceExpr) writeExpr(w *code.Writer, singleLine bool) {
 }
 
 func (e MapExpr) simpleExpr() bool {
+	if len(e.Entries) > 1 {
+		return false
+	}
+
 	for _, itm := range e.Entries {
 		if itm.Key != nil && !itm.Key.simpleExpr() {
 			return false
@@ -370,6 +374,10 @@ func (e MapExpr) writeExpr(w *code.Writer, singleLine bool) {
 }
 
 func (e StructExpr) simpleExpr() bool {
+	if len(e.Fields) > 1 {
+		return false
+	}
+
 	for _, itm := range e.Fields {
 		if itm.Value != nil && !itm.Value.simpleExpr() {
 			return false
@@ -466,13 +474,8 @@ func (e MemberExpr) writeExpr(w *code.Writer, singleLine bool) {
 }
 
 func (e CallExpr) simpleExpr() bool {
-	for _, arg := range e.Args {
-		if !arg.simpleExpr() {
-			return false
-		}
-	}
-
-	return e.Func == nil || e.Func.simpleExpr()
+	return (e.Func == nil || e.Func.simpleExpr()) &&
+	    e.Args.simpleExprs()
 }
 
 func (e CallExpr) writeExpr(w *code.Writer, singleLine bool) {
@@ -778,6 +781,10 @@ func exprString(e Expr, reqMessage string) string {
 }
 
 func (e Exprs) simpleExprs() bool {
+	if len(e) > 3 {
+		return false
+	}
+
 	for _, itm := range e {
 		if itm != nil && !itm.simpleExpr() {
 			return false
